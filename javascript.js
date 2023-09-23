@@ -15,6 +15,13 @@ const calcDisplay = document.querySelector('#calcDisplay');
 
     for (const op of operators) {
         op.addEventListener('click', () => {
+            if (input2 !== '') {
+                input1 = `${operate(input1, operator, input2)}`;
+                input2 = '';
+                operator = '';
+            };
+            console.log(input1);
+
             if (input1 !== '') {operator = op.textContent};
             calcDisplay.textContent = input1 + ' ' + operator + ' ' + input2;
         });
@@ -30,7 +37,15 @@ const c = document.querySelector('#C');
 
 const equals = document.querySelector('#equals');
     equals.addEventListener('click', () => {
-        calcDisplay.textContent = `${operate(input1, operator, input2)}`;
+        if (operator == '') {calcDisplay.textContent = 'error | missing operator'} 
+        else if (input2 == '') {calcDisplay.textContent = 'error | missing argument'}
+        else if (operator == '/' && input2 == '0') {calcDisplay.textContent = 'error | try an arts degree'}
+        else {
+            calcDisplay.textContent = `${operate(input1, operator, input2)}`;
+            input1 = '';
+            input2 = '';
+            operator = '';
+        }
     })
 
 
